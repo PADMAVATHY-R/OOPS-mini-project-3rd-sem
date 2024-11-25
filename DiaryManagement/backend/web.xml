@@ -1,0 +1,10 @@
+<web-app>
+    <servlet>
+        <servlet-name>DiaryServlet</servlet-name>
+        <servlet-class>DiaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DiaryServlet</servlet-name>
+        <url-pattern>/diary</url-pattern>
+    </servlet-mapping>
+</web-app>

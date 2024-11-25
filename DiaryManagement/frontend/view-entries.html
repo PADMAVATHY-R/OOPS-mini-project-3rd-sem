@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Entry</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Diary Entry</h1>
+    <div id="entry">
+        <!-- Content will be loaded dynamically -->
+    </div>
+    <a href="index.html">Back to Entries</a>
+
+    <script>
+        // Get the 'id' parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const entryId = urlParams.get('id');
+
+        if (entryId) {
+            // Fetch the specific entry from the backend
+            fetch(`/diary?id=${entryId}`)
+                .then(response => response.json())
+                .then(entry => {
+                    const entryDiv = document.getElementById('entry');
+                    if (entry) {
+                        entryDiv.innerHTML = `
+                            <h3>${entry.title}</h3>
+                            <p>${entry.content}</p>
+                            <small>${entry.createdAt}</small>
+                        `;
+                    } else {
+                        entryDiv.innerHTML = `<p>Entry not found.</p>`;
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('entry').innerHTML = `<p>Error loading entry.</p>`;
+                });
+        } else {
+            document.getElementById('entry').innerHTML = `<p>Invalid entry ID.</p>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diary</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Diary Entries</h1>
+    <div id="entries"></div>
+    <a href="new-entry.html">Add New Entry</a>
+    <a href="view-entries.html?id=${entry.id}">${entry.title}</a>
+
+
+    <script>
+        fetch('/diary')
+            .then(response => response.json())
+            .then(entries => {
+                const entriesDiv = document.getElementById('entries');
+                entries.forEach(entry => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<h3>${entry.title}</h3><p>${entry.content}</p><small>${entry.createdAt}</small>`;
+                    entriesDiv.appendChild(div);
+                });
+            });
+    </script>
+</body>
+</html>
